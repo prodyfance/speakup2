@@ -1,10 +1,18 @@
 
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     
 <style>
     body {
         font-family: Arial, sans-serif;
+        background-image: linear-gradient(to bottom, rgb(45, 2, 45)20%, purple 50%, rgb(231, 79, 231),rgb(242, 145, 242));
+        height:100vh;
+  width:100vw;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
     }
     .card {
         width: 300px;
@@ -14,7 +22,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        background: white;
+        background: purple;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         position: relative;
     }
@@ -77,11 +85,17 @@
     }
         .add{
             position:absolute;
-            right: 50vw;
             font-size:30px;
             color:red;
-            top:50vh;
-            transform: translate(50%,50%);
+            top:30vh;
+            
+        }
+        .div{
+            height: 90vh;
+            position:absolute;
+            top: 10vh;
+            right: 39vw;
+            width: 400px;
         }
    
     
@@ -98,11 +112,19 @@
         <a href="php/enattant2.php?id_att='.$row['id_us'].'" id="btn2"  class="btn delete"><i class="fa-solid fa-xmark"></i></a >
     </div>
 </li> -->
+<div class="div">
 <ul>
 <?php
+if (isset($_SESSION['id'])) {
+    $id1=$_SESSION['id'];
+    $sql="SELECT * FROM amis WHERE id_us1='$id1' or id_us2='$id1'";
 
+ } else {
+    $id1 = isset($_COOKIE['id']);
+    $sql="SELECT * FROM amis WHERE id_us1='$id1' or id_us2='$id1'";
 
-       $sql='SELECT * FROM `amis` WHERE id_us1=3 or id_us2=3';
+ }
+
         $result=mysqli_query($con,$sql);
         if ($result->num_rows <= 0){
 
@@ -113,17 +135,17 @@
                 
             
        while ($row=mysqli_fetch_array($result)) {
-        if ($row['id_us2']!=3) {
-            $sql1='SELECT * FROM `user` where id_us='.$row['id_us2'].'';
+        if ($row['id_us2']!=$id1) {
+            $sql1='SELECT * FROM user where id_us='.$row['id_us2'].'';
           $result1=mysqli_query($con,$sql1);
         }else {
-            $sql1='SELECT * FROM `user` where id_us='.$row['id_us1'].'';
+            $sql1='SELECT * FROM user where id_us='.$row['id_us1'].'';
           $result1=mysqli_query($con,$sql1);
         }
           
           while ($row2=mysqli_fetch_array($result1)) {
             echo ' <li class="card">
-    <img src="images/'.$row2['img_us'].'" alt="Photo de profil" class="profile-pic">
+    <a href="speak/pages/profil.php?id='.$row2['id_us'].'"><img src="images/'.$row2['img_us'].'" alt="Photo de profil" class="profile-pic"></a>
     <div class="info">
         <strong class="name">'.$row2['nickname_us'].'</strong>
         <h5 class="mutual-friends">'.$row2['name_us'].'</h5>
@@ -140,6 +162,8 @@
 
 ?>
 </ul>
+
+</div>
 
 <!-- <script>
     var btn=document.getElementById("btn");

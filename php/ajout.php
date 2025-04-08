@@ -2,8 +2,14 @@
 
 <style>
         body {
-            font-family: Arial, sans-serif;
-        }
+        font-family: Arial, sans-serif;
+        background-image: linear-gradient(to bottom, rgb(45, 2, 45)20%, purple 50%, rgb(231, 79, 231),rgb(242, 145, 242));
+        height:100vh;
+  width:100vw;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+    }
         .card {
             width: 320px;
             border: 1px solid #ddd;
@@ -105,23 +111,31 @@
             top:-20;
                 
         }
+        .div{
+            height: 90vh;
+            position:absolute;
+            top: 10vh;
+            right: 39vw;
+            width: 400px;
+        }
 </style>
 
-
-     <div class="saerchc">
+<div class="div">
+   <!--   <div class="saerchc">
      <input type="text" class="saerch" name="saerch" id="saerch">
      <i class="fa-solid fa-magnifying-glass"></i>
-     </div>
+     </div> -->
 
-<ul>
+     
+     <ul>
  <?php
 
 
-           $sql='SELECT * FROM `user`';
+           $sql='SELECT * FROM `user` where id_us!='.$_SESSION['id'].'';
            $result=mysqli_query($con,$sql);
            while ($row=mysqli_fetch_array($result)) {
-            $sql1="SELECT * FROM `amis` where id_us1=3 and id_us2=".$row['id_us']."
-                   or id_us2=3 and id_us1=".$row['id_us']."";
+            $sql1="SELECT * FROM `amis` where id_us1=".$_SESSION['id']." and id_us2=".$row['id_us']."
+                   or id_us2=".$_SESSION['id']." and id_us1=".$row['id_us']."";
             $result1=mysqli_query($con,$sql1);
                
               if ($result1->num_rows <= 0) {
@@ -136,7 +150,7 @@
 
                    echo '<li class="card">
             
-           <img src="images/'.$row['img_us'].'" alt="Photo de profil" class="profile-pic">
+            <a href="speak/pages/profil.php?id='.$row['id_us'].'"><img src="images/'.$row['img_us'].'" alt="Photo de profil" class="profile-pic"></a>
             <div class="info">
             <strong class="name">'.$row['nickname_us'].'</strong>
              <h5 class="mutual-friends">'.$row['name_us'].'</h5>
@@ -152,6 +166,8 @@
  ?>
 </ul>
   
+     </div>
+
 <script>
     function filterajout() {
     var input = document.getElementById("saerch").value.toLowerCase();
@@ -174,3 +190,5 @@
     });
   }
 </script>
+
+

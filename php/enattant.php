@@ -4,8 +4,14 @@
     
     <style>
         body {
-            font-family: Arial, sans-serif;
-        }
+        font-family: Arial, sans-serif;
+        background-image: linear-gradient(to bottom, rgb(45, 2, 45)20%, purple 50%, rgb(231, 79, 231),rgb(242, 145, 242));
+        height:100vh;
+  width:100vw;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+    }
         .card {
             width: 300px;
             border: 1px solid #ddd;
@@ -75,6 +81,13 @@
         li{
             margin-bottom:5px;
         }
+        .div{
+            height: 90vh;
+            position:absolute;
+            top: 10vh;
+            right: 39vw;
+            width: 400px;
+        }
             
        
         
@@ -91,11 +104,12 @@
             <a href="php/enattant2.php?id_att='.$row['id_us'].'" id="btn2"  class="btn delete"><i class="fa-solid fa-xmark"></i></a >
         </div>
     </li> -->
+<div class="div">
 <ul>
     <?php
 
 
-           $sql='SELECT * FROM `enattent` WHERE id_req=3';
+           $sql='SELECT * FROM `enattent` WHERE id_req='.$_SESSION['id'].'';
             $result=mysqli_query($con,$sql);
            
            while ($row=mysqli_fetch_array($result)) {
@@ -120,6 +134,7 @@
    
   ?>
 </ul>
+</div>
 
     <!-- <script>
         var btn=document.getElementById("btn");
