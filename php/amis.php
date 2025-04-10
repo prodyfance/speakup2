@@ -2,7 +2,7 @@
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous"> -->
     
 <style>
     body {
@@ -97,7 +97,24 @@
             right: 39vw;
             width: 400px;
         }
-   
+        .statuson{
+            height: 15px;
+            width: 15px;
+            background-color: green;
+            position:absolute;
+            bottom: 15px;
+            left: 55px;
+           border-radius:50%;
+        }
+        .statusoff{
+            height: 15px;
+            width: 15px;
+            background-color: grey;
+            position:absolute;
+            bottom: 15px;
+            left: 55px;
+           border-radius:50%;
+        }
     
 </style>
 
@@ -142,9 +159,16 @@ if (isset($_SESSION['id'])) {
             $sql1='SELECT * FROM user where id_us='.$row['id_us1'].'';
           $result1=mysqli_query($con,$sql1);
         }
+        
           
           while ($row2=mysqli_fetch_array($result1)) {
+            if ($row2['status_us']!=0) {
+                $status='<div class="statuson"></div>';
+            }else {
+                $status='<div class="statusoff"></div>';
+            }
             echo ' <li class="card">
+          '.$status.'
     <a href="speak/pages/profil.php?id='.$row2['id_us'].'"><img src="images/'.$row2['img_us'].'" alt="Photo de profil" class="profile-pic"></a>
     <div class="info">
         <strong class="name">'.$row2['nickname_us'].'</strong>

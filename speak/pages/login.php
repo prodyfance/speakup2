@@ -67,7 +67,7 @@ require_once '../../config.php';
            
                 
              }
-             $sql = "UPDATE set status_us=1 WHERE id_us=".$row['id_us']."";
+             $sql = "UPDATE user set status_us=1 WHERE id_us=".$row['id_us']."";
              $result = mysqli_query($con, $sql);
 
              header("Location:../../index.php?".$_SESSION['id']."");

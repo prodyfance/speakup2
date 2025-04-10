@@ -80,17 +80,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $image = $_FILES['image']['name'];
     $tempname = $_FILES['image']['tmp_name'];
-    $floder = "../images/".$image;
+    $floder = "../../images/".$image."";
 
-    if (move_uploaded_file($tempname, $image)) {
-        // check dejjjja exists
-        $query = "SELECT * FROM user WHERE email_us='$email1'";
+    // check dejjjja exists
+ $query = "SELECT * FROM user WHERE email_us='$email1'";
         $result = mysqli_query($con, $query);
+    
+       
+       
 
         if (mysqli_num_rows($result) > 0) {
             echo '<center><span class="badge text-bg-danger"><h6>Email already exists</h6></span></center>';
         } else {
             // Insert in db
+            if (move_uploaded_file($tempname, $floder)) {
             $sql = "INSERT INTO user (email_us, name_us, nickname_us, pass_us, verification_code, img_us) 
                     VALUES ('$email1', '$nom1', '$nickname1', '$passwordH', '$verification_code', '$image')";
             if (mysqli_query($con, $sql)) {
@@ -99,11 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 echo "Error: " . mysqli_error($con);
             }
-        }
+        }}
     } else {
         echo "<center><span class='badge text-bg-danger'><h6>Image upload failed</h6></span></center>";
     }
-}
+
 
 // Function to send verification email
 function sendEmail($email, $code) {

@@ -20,6 +20,7 @@ if (!isset($_SESSION['id'])) {
 </head>
 <body>
  <?php
+ 
 
  if (isset($_GET['amis'])) {
     require_once 'php/amis.php';

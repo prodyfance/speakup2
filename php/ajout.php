@@ -137,8 +137,11 @@
             $sql1="SELECT * FROM `amis` where id_us1=".$_SESSION['id']." and id_us2=".$row['id_us']."
                    or id_us2=".$_SESSION['id']." and id_us1=".$row['id_us']."";
             $result1=mysqli_query($con,$sql1);
-               
-              if ($result1->num_rows <= 0) {
+
+            $sql2="SELECT * FROM `enattent` where id_req=".$_SESSION['id']." and id_att=".$row['id_us']."
+            or id_att=".$_SESSION['id']." and id_req=".$row['id_us']."";
+     $result2=mysqli_query($con,$sql2);
+              if ($result1->num_rows <= 0 && $result2->num_rows <= 0) {
                 //    echo $row['id_us'];
                 //    echo $row['role_us'];
                 //    echo $row['img_us'];
@@ -155,7 +158,7 @@
             <strong class="name">'.$row['nickname_us'].'</strong>
              <h5 class="mutual-friends">'.$row['name_us'].'</h5>
             
-            <a href="php/ajout2.php?id_aj='.$row['id_us'].'" class="add-friend-btn">Add</a>
+            <a href="php/ajout2.php?id_aj='.$row['id_us'].'" class="add-friend-btn" id="btn">Add</a>
            </div>
               
         </li>';
@@ -168,27 +171,6 @@
   
      </div>
 
-<script>
-    function filterajout() {
-    var input = document.getElementById("saerch").value.toLowerCase();
-    var items = document.getElementById("friendsList li");
-
-
-    // for (var i = 0; i < items.length; i++) {
-    //     var nickname = items[i].querySelector(".name").textContent.toLowerCase();
-    //     var name = items[i].querySelector(".mutual-friends").textContent.toLowerCase();
-
-    items.forEach(function(e) {
-        var  nickname= e.querySelector(".name").textContent.toLowerCase();
-        var  name= e.querySelector(".mutual-friends").textContent.toLowerCase();
-
-        if (nickname.includes(input) || name.includes(input)) {
-            e.style.display = "flex";
-        } else {
-            e.style.display = "none";
-        }
-    });
-  }
-</script>
+   
 
 
