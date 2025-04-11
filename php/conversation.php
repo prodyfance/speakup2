@@ -1,3 +1,4 @@
+// tst
 <?php
 require_once '../config.php';
 $id_am = intval($_GET['id_am']);
